@@ -3,6 +3,8 @@ package controllers;
 import java.util.ArrayList;
 import java.util.HashSet;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import models.Id;
 import models.Message;
 
@@ -14,15 +16,14 @@ public class MessageController {
     // Add another command that watches the global stream
     // and only prints messages once.
 
-    // CONVERT JSON STRING INTO JAVA CLASS example:
-    // Player ronaldo = new ObjectMapper().readValue(jsonString, Player.class);
-
     private HashSet<Message> messagesSeen;
     // why a HashSet?? - idk to remove duplicates??
 
     public ArrayList<Message> getMessages() {
-        // URL: "/messages/"
-        // Get last 20 msgs - returns an JSON array of message objects
+        // URL: "/messages/" - Get last 20 msgs - returns an JSON array of message objects
+//        ObjectMapper objectMapper = new ObjectMapper();
+//        ArrayList<Message> messageList = objectMapper.readValue(response, new TypeReference<ArrayList<Message>>(){});
+//        return messageList; //returns a message object to MessageTextView
         return null;
     }
 
