@@ -30,7 +30,7 @@ public class YouAreEll {
         if (method.equals("GET")) getURLCall(mainurl, jpayload);
         if (method.equals("POST")) postURLCall(mainurl, jpayload);
         if (method.equals("PUT")) putURLCall(mainurl, jpayload);
-        return false;
+        return true;
     }
 
     public String getURLCall(String mainurl, String jpayload) throws IOException {
