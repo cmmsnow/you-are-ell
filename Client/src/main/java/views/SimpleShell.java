@@ -16,16 +16,21 @@ public class SimpleShell {
 
 
     public static void prettyPrint(String output) {
-        // yep, make an effort to format things nicely, eh?
-        System.out.println(output);
+        //still need to fix this
+        String formattedString = "hello [%s] is my name";
+        String arg1 = output;
+        String outputString = String.format(formattedString, arg1);
+        System.out.println(outputString);
+        //or like this??  String json = "{\"id\":1,\"name\":\"My bean\"}";
     }
+
+
     public static void main(String[] args) throws java.io.IOException {
 
         YouAreEll webber = new YouAreEll(new MessageController(), new IdController());
         
         String commandLine;
-        BufferedReader console = new BufferedReader
-                (new InputStreamReader(System.in));
+        BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
         ProcessBuilder pb = new ProcessBuilder();
         List<String> history = new ArrayList<String>();
@@ -35,12 +40,12 @@ public class SimpleShell {
             //read what the user enters
             System.out.println("cmd? ");
             commandLine = console.readLine();
-
             //input parsed into array of strings(command and arguments)
             String[] commands = commandLine.split(" ");
             List<String> list = new ArrayList<String>();
+            //can I just: List<String> list = new ArrayList<String>(Arrays.asList(commands));
 
-            //if the user entered a return, just loop again
+            //if the user entered a return, just loop again -- how??
             if (commandLine.equals(""))
                 continue;
             if (commandLine.equals("exit")) {
@@ -51,10 +56,11 @@ public class SimpleShell {
             //loop through to see if parsing worked
             for (int i = 0; i < commands.length; i++) {
                 //System.out.println(commands[i]); //***check to see if parsing/split worked***
+                //how??^^
                 list.add(commands[i]);
 
             }
-            System.out.print(list); //***check to see if list was added correctly***
+            System.out.print(list); //***check to see if list was added correctly*** <<how??
             history.addAll(list);
             try {
                 //display history of shell with index
@@ -80,6 +86,11 @@ public class SimpleShell {
                     continue;
                 }
                 // you need to add a bunch more.
+                //need to find out what commands are used
+                if (list.contains("send")) {
+                    //something idk
+                    continue;
+                }
 
                 //!! command returns the last command in history
                 if (list.get(list.size() - 1).equals("!!")) {

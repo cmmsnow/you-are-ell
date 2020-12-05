@@ -8,7 +8,6 @@ public class YouAreEll {
     private IdController idCtrl;
 
     public YouAreEll (MessageController m, IdController j) {
-        // used j because i seems awkward
         this.msgCtrl = m;
         this.idCtrl = j;
     }
