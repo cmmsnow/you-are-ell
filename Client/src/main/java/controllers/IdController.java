@@ -11,11 +11,6 @@ import okhttp3.Response;
 
 public class IdController {
     Id myId;
-    //ids api url is: "/ids/"
-    // GET, POST, PUT
-
-    // CONVERT JSON STRING INTO JAVA ID OBJECT:
-    // Player ronaldo = new ObjectMapper().readValue(jsonString, Player.class);
 
     public ArrayList<Id> getIds(String response) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();

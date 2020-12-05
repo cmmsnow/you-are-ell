@@ -2,7 +2,7 @@ package youareell;
 
 import controllers.*;
 import models.Id;
-import okhttp3.Response;
+import models.Message;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -20,31 +20,48 @@ public class YouAreEll {
     }
 
     public static void main(String[] args) throws IOException {
-        // hmm: is this Dependency Injection?
         YouAreEll urlhandler = new YouAreEll(new MessageController(), new IdController(), new TransactionController());
-        System.out.println(urlhandler.MakeURLCall("/ids", "GET", ""));
-        System.out.println(urlhandler.MakeURLCall("/messages", "GET", ""));
+        System.out.println(urlhandler.methodSorter("/ids", "GET", ""));
+        System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
+        //Add more of these ^^ for put and post
     }
 
-//    public String get_ids() {
-//        return MakeURLCall("/ids", "GET", "");
-//    }
-//
-//    public String get_messages() {
-//        return MakeURLCall("/messages", "GET", "");
-//    }
+    public boolean methodSorter(String mainurl, String method, String jpayload) throws IOException {
+        if (method.equals("GET")) getURLCall(mainurl, jpayload);
+        if (method.equals("POST")) postURLCall(mainurl, jpayload);
+        if (method.equals("PUT")) putURLCall(mainurl, jpayload);
+        return false;
+    }
 
-    public String MakeURLCall(String mainurl, String method, String jpayload) throws IOException {
+    public String getURLCall(String mainurl, String jpayload) throws IOException {
         if (mainurl.equals("/ids")){
             String response = transactionController.get(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
-
         } else if (mainurl.equals("/messages")){
-            // call transaction controller
-            // transaction controller returns response
-            // send response to MessageController
+            String response = transactionController.get(mainurl);
+            ArrayList<Message> messagesList = msgCtrl.getMessages(response);
+            System.out.println(messagesList);
         }
         return "nada";
     }
+
+    public String postURLCall(String mainurl, String jpayload){
+        if (mainurl.equals("/ids")){
+
+        } else if (mainurl.equals("/messages")){
+
+        }
+        return "nada";
+    }
+
+    public String putURLCall(String mainurl, String jpayload){
+        if (mainurl.equals("/ids")){
+
+        } else if (mainurl.equals("/messages")){
+
+        }
+        return "nada";
+    }
+
 }
