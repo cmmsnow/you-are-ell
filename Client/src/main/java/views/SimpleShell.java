@@ -9,6 +9,7 @@ import java.util.List;
 
 import controllers.IdController;
 import controllers.MessageController;
+import controllers.TransactionController;
 import youareell.YouAreEll;
 
 // Simple Shell is a Console view for youareell.YouAreEll.
@@ -27,7 +28,7 @@ public class SimpleShell {
 
     public static void main(String[] args) throws java.io.IOException {
 
-        YouAreEll webber = new YouAreEll(new MessageController(), new IdController());
+        YouAreEll webber = new YouAreEll(new MessageController(), new IdController(), new TransactionController());
         
         String commandLine;
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
@@ -74,15 +75,15 @@ public class SimpleShell {
 
                 // ids
                 if (list.contains("ids")) {
-                    String results = webber.get_ids();
-                    SimpleShell.prettyPrint(results);
+                    //String results = webber.get_ids();
+                    //SimpleShell.prettyPrint(results);
                     continue;
                 }
 
                 // messages
                 if (list.contains("messages")) {
-                    String results = webber.get_messages();
-                    SimpleShell.prettyPrint(results);
+                    //String results = webber.get_messages();
+                    //SimpleShell.prettyPrint(results);
                     continue;
                 }
                 // you need to add a bunch more.

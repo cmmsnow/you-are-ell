@@ -7,23 +7,37 @@ import java.util.concurrent.TimeUnit;
 
 public class TransactionController {
     private String rootURL = "http://zipcode.rocks:8085";
-    private OkHttpClient okHttpClient = new OkHttpClient();
+    private OkHttpClient client;
+    private MediaType mediaType;
 
     public TransactionController() throws IOException {
-        OkHttpClient client = new OkHttpClient().newBuilder()
-                .connectTimeout(5, TimeUnit.MINUTES)
-                .readTimeout(5, TimeUnit.MINUTES)
-                .writeTimeout(5, TimeUnit.MINUTES)
-                .build();
-        MediaType mediaType = MediaType.parse("application/json");
+        client = new OkHttpClient();//.newBuilder()
+                //.connectTimeout(5, TimeUnit.MINUTES)
+                //.readTimeout(5, TimeUnit.MINUTES)
+                //.writeTimeout(5, TimeUnit.MINUTES)
+                //.build();
+        mediaType = MediaType.parse("application/json");
+        //Lake had:  mediaType = MediaType.get("application/json; charset=utf-8");
         //RequestBody body = RequestBody.create(mediaType, data);
-        Request request = new Request.Builder()
-                .url(rootURL)
-                .method("GET", null)
-                .addHeader("Content-Type", "application/json")
-                .build();
-        Response response = client.newCall(request).execute();
     }
 
+    public String get(String path) throws IOException {
+        Request request = new Request.Builder()
+                .url(rootURL + path)
+                .method("GET", null)
+                //.addHeader("Content-Type", "application/json")
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
+
+    //post - posting something new
+
+    //put - updating
+
+
+
+
+    //translation of json can happen here
 }
 
