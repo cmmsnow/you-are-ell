@@ -47,8 +47,20 @@ public class TransactionController {
         return response.body().string();
     }
 
-    public String put(String path){
-        return "hellooooo";
+    public String put(String path) throws IOException {
+        String body="{\n" +
+                "        \"userid\": \"-\",\n" +
+                "        \"name\": \"Rocks\",\n" +
+                "        \"github\": \"Yoyo\"\n" +
+                "    }";
+        RequestBody json = RequestBody.create(mediaType, body);
+        Request request = new Request.Builder()
+                .url(rootURL + path)
+                .method("PUT", json)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
     }
 
 

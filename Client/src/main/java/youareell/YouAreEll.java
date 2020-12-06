@@ -39,10 +39,12 @@ public class YouAreEll {
             String response = transactionController.get(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
+            //can say ^ return idsList instead?
         } else if (mainurl.equals("/messages")){
             String response = transactionController.get(mainurl);
             ArrayList<Message> messagesList = msgCtrl.getMessages(response);
             System.out.println(messagesList);
+            //can say ^ return messagesList instead?
         }
         return "nada";
     }
@@ -52,16 +54,19 @@ public class YouAreEll {
             String response = transactionController.post(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
+            //can say ^ return idsList instead?
         } else if (mainurl.equals("/messages")){
 
         }
         return "nada";
     }
 
-    public String putURLCall(String mainurl, String jpayload){
+    public String putURLCall(String mainurl, String jpayload) throws IOException {
         if (mainurl.equals("/ids")){
             String response = transactionController.put(mainurl);
-            //etc
+            ArrayList<Id> idsList = idCtrl.getIds(response);
+            System.out.println(idsList);
+            //can say ^ return idsList instead?
         } else if (mainurl.equals("/messages")){
 
         }
