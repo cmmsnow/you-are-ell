@@ -27,16 +27,17 @@ public class YouAreEll {
         //System.out.println(urlhandler.methodSorter("/ids", "POST", ""));
         //System.out.println(urlhandler.methodSorter("/ids", "PUT", ""));
         //System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
-        //System.out.println(urlhandler.methodSorter("/messages", "POST", ""));
-        //System.out.println(urlhandler.methodSorter("/messages", "PUT", ""));
+        //System.out.println(urlhandler.methodSorter("/recipient-id" + "/messages", "POST", ""));
         //Change ids put & post when i get user input from SimpleShell?
-        //Add more of these for messages
     }
 
     public boolean methodSorter(String mainurl, String method, String jpayload) throws IOException {
         if (method.equals("GET")) getURLCall(mainurl, jpayload);
         if (method.equals("POST") && mainurl.equals("/ids")) postIdsURLCall(mainurl, jpayload);
         if (method.equals("PUT") && mainurl.equals("/ids")) putIdsURLCall(mainurl, jpayload);
+        if (method.equals("POST") && mainurl.contains("/messages")) postMessagesURLCall(mainurl, jpayload);
+        //need to add one for get messages spf to UserID
+        //and one for getting messages between 2 users
         return true;
     }
 
@@ -54,21 +55,24 @@ public class YouAreEll {
     }
 
     public String postIdsURLCall(String mainurl, String jpayload) throws IOException {
-        if (mainurl.equals("/ids")) {
             String response = transactionController.postIds(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
             return "nada";
-        }
-
-        public String putIdsURLCall(String mainurl, String jpayload) throws IOException {
-            if (mainurl.equals("/ids")) {
-                String response = transactionController.putIds(mainurl);
-                ArrayList<Id> idsList = idCtrl.getIds(response);
-                System.out.println(idsList);
-                return "nada";
-            }
-
-        }
     }
+
+    public String putIdsURLCall(String mainurl, String jpayload) throws IOException {
+            String response = transactionController.putIds(mainurl);
+            ArrayList<Id> idsList = idCtrl.getIds(response);
+            System.out.println(idsList);
+            return "nada";
+    }
+
+    public String postMessagesURLCall(String mainurl, String jpayload) throws IOException {
+        String response = transactionController.postIds("/ids" + "/cmmsnow" + mainurl);
+        ArrayList<Id> idsList = idCtrl.getIds(response);
+        System.out.println(idsList);
+        return "nada";
+    }
+
 }
