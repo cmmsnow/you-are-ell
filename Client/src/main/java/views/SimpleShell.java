@@ -33,8 +33,9 @@ public class SimpleShell {
         String postId = "\nTo create a new user id, type:  'ids' 'your-name' 'your-github'";
         String putId ="\nTo change name for github, type:  'ids' 'new-name' 'same-github'";
         String postMessage = "\nTo post message, type:  'send' 'from-github' 'message' 'to' 'recipient-github'";
-        System.out.println(get + postId + putId + postMessage);
-        return get + postId + putId + postMessage;
+        String historyExit = "\nTo display shell history, type:  'history'\nTo display last command in history, type:  '!!'\nTo exit, type:  'exit'";
+        System.out.println(get + postId + putId + postMessage + historyExit);
+        return get + postId + putId + postMessage + historyExit;
     }
 
 
