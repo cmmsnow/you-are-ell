@@ -39,38 +39,40 @@ public class YouAreEll {
 //        return true;
 //    }
 
-    public String getURLCall(String mainurl) throws IOException {
+    public ArrayList getURLCall(String mainurl) throws IOException {
         if (mainurl.equals("/ids")) {
             String response = transactionController.get(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
+            return idsList;
         } else if (mainurl.equals("/messages")) {
             String response = transactionController.get(mainurl);
             ArrayList<Message> messagesList = msgCtrl.getMessages(response);
             System.out.println(messagesList);
+            return messagesList;
         }
-        return "";
+        return null;
     }
 
-    public String postIdsURLCall(String name, String github) throws IOException {
+    public ArrayList postIdsURLCall(String name, String github) throws IOException {
             String response = transactionController.postIds(name, github);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
-            return "";
+            return idsList;
     }
 
-    public String putIdsURLCall(String userid, String name, String github) throws IOException {
+    public ArrayList putIdsURLCall(String userid, String name, String github) throws IOException {
             String response = transactionController.putIds(userid, name, github);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
-            return "";
+            return idsList;
     }
 
-    public String postMessagesURLCall(String fromId, String toId, String jpayload) throws IOException {
+    public ArrayList postMessagesURLCall(String fromId, String toId, String jpayload) throws IOException {
         String response = transactionController.postMessages(fromId, toId, jpayload);
         ArrayList<Message> messagesList = msgCtrl.getMessages(response);
         System.out.println(messagesList);
-        return "";
+        return messagesList;
     }
 
 }

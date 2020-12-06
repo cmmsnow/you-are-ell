@@ -33,7 +33,6 @@ public class TransactionController {
 
     public String postIds(String name, String github) throws IOException {
         String body="{\n" +
-                "        \"userid\": \"-\",\n" +
                 "        \"name\": " + name + ",\n" +
                 "        \"github\": " + github + "\n" +
                 "    }";
@@ -41,11 +40,11 @@ public class TransactionController {
         Request request = new Request.Builder()
                 .url(rootURL + "/ids")
                 .method("POST", json)
-                //.addHeader("Content-Type", "application/json")
+                .addHeader("Content-Type", "application/json")
                 .build();
-        client.newCall(request).execute();
-        String response = get("/ids");
-        return response;
+        Response response = client.newCall(request).execute();
+        //String response = get("/ids");
+        return response.body().string();
     }
 
     public String putIds(String userid, String name, String github) throws IOException {
@@ -58,11 +57,11 @@ public class TransactionController {
         Request request = new Request.Builder()
                 .url(rootURL + "/ids")
                 .method("PUT", json)
-                //.addHeader("Content-Type", "application/json")
+                .addHeader("Content-Type", "application/json")
                 .build();
-        client.newCall(request).execute();
-        String response = get("/ids");
-        return response;
+        Response response = client.newCall(request).execute();
+        //String response = get("/ids");
+        return response.body().string();
     }
 
     public String postMessages(String fromId, String toId, String payload) throws IOException {
@@ -79,9 +78,9 @@ public class TransactionController {
                 .method("POST", json)
                 //.addHeader("Content-Type", "application/json")
                 .build();
-        client.newCall(request).execute();
-        String response = get("/messages");
-        return response;
+        Response response = client.newCall(request).execute();
+        //String response = get("/messages");
+        return response.body().string();
     }
 }
 

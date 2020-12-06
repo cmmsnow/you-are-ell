@@ -26,11 +26,10 @@ public class SimpleShell {
 
     public static String commandMenu(){
         String get = "\nCOMMAND OPTIONS:\nTo get list of all users, type:  'ids'\nTo get list of all messages, type:  'messages'";
-        String postId = "\nTo create a new user id, type:  'ids' 'your-name' 'your-github'";
-        String putId ="\nTo change name for github, type:  'put' 'userid' 'new-name' 'same-github'";
-        //change to type new-name, same-github
-        String postMessage = "\nTo post message, type:  'send' 'from-github' '\"message\"' 'to' 'recipient-github'";
-        String historyExit = "\nTo display shell history, type:  'history'\nTo display last command in history, type:  '!!'\nTo exit, type:  'exit'";
+        String postId = "\nTo create a new user id, type:  ids your-name your-github";
+        String putId ="\nTo change name for github, type:  ids new-name same-github";
+        String postMessage = "\nTo post message, type:  send from-github 'your message' to recipient-github";
+        String historyExit = "\nTo display shell history, type:  history\nTo display last command in history, type:  !!\nTo exit, type:  exit";
         //need to add one for get messages spf to UserID
         //and one for getting messages between 2 users
         System.out.println(get + postId + putId + postMessage + historyExit);
@@ -85,28 +84,22 @@ public class SimpleShell {
                         continue;
                     }
                 } else {
-//                    if (commandsList.get(0).equals("ids") && commandsList.size() == 3) {
-//                        //  String response = webber.getids();
-//                        Boolean found=false;
-//                        ArrayList<Id> idsList =  webber.getIds("/ids");
-//                        for (int i = 0; i < idsList.size(); i++) {
-//                            if (idsList.get(i).getGithub().equalsIgnoreCase(commandsList.get(2))) {
-//                                idsList.get(i).setName(commandsList.get(1));
-//                                String putBody = idsList.get(i).toString();
-//                                results = webber.putIds("/ids", putBody);
-//                                System.out.println(results);
-//                                found=true;
-//                                continue;
-//                            }
-//                        }
-//                        if(!found)
-//                        {
-//                            results=webber.postIds("/ids", commandsList.get(1), commandsList.get(2));
-//                            // SimpleShell.prettyPrintIds(results);
-//                            System.out.println(results);
-//                            continue;
-//                        }
-//                    }
+                    if (commandsList.get(0).equals("ids") && commandsList.size() == 3) {
+                        Boolean found=false;
+                        ArrayList<Id> idsList =  webber.getURLCall("/ids");
+                        for (int i = 0; i < idsList.size(); i++) {
+                            if (idsList.get(i).getGithub().equals(commandsList.get(2))) {
+                                idsList.get(i).setName(commandsList.get(1));
+                                webber.putIdsURLCall(idsList.get(i).getUserid(), idsList.get(i).getName(), idsList.get(i).getGithub());
+                                found = true;
+                                continue;
+                            }
+                        }
+                        if (!found) {
+                            webber.postIdsURLCall(commandsList.get(1), commandsList.get(2));
+                            continue;
+                        }
+                    }
                 }
 
                 //get all messages
@@ -115,28 +108,22 @@ public class SimpleShell {
                     continue;
                 }
 
-                //post new id
-                if ((commandsList.size() == 3) && (commandsList.get(0).equals("ids"))){
-                    String name = commandsList.get(1);
-                    String github = commandsList.get(2);
-                    webber.postIdsURLCall(name, github);
-                }
-
-                //change id name
-                if ((commandsList.size() == 4) && (commandsList.get(0).equals("put"))){
-                    String userid = commandsList.get(1);
-                    String name = commandsList.get(2);
-                    String github = commandsList.get(3);
-                    webber.putIdsURLCall(userid, name, github);
-                }
-
                 //example: send xt0fer 'Hello old buddy!' to torvalds
                 //reparse looking for ''
                 if (commandsList.contains("send")) {
                     String fromId = commandsList.get(1);
-                    String payload = commandsList.get(2);
+                    String message = commandsList.get(2);
                     String toId = commandsList.get(4);
-                    webber.postMessagesURLCall(fromId, toId, payload);
+                    int messageEnd = 2;
+                    for (int i=0; i<commandsList.size(); i++){
+                        if (commandsList.get(i).equals("to")) messageEnd = i-1;
+                    }
+                    if (messageEnd > 2){
+                        for (int i=3; i<=messageEnd; i++){
+                            message += commandsList.get(i);
+                        }
+                    }
+                    webber.postMessagesURLCall(fromId, toId, message);
                     continue;
                 }
 
