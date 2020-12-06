@@ -28,7 +28,7 @@ public class SimpleShell {
         String get = "\nCOMMAND OPTIONS:\nTo get list of all users, type:  'ids'\nTo get list of all messages, type:  'messages'";
         String postId = "\nTo create a new user id, type:  ids your-name your-github";
         String putId ="\nTo change name for github, type:  ids new-name same-github";
-        String postMessage = "\nTo post message, type:  send from-github 'your message' to recipient-github";
+        String postMessage = "\nTo post message, type:  send your-github 'your message' to recipient-github";
         String historyExit = "\nTo display shell history, type:  history\nTo display last command in history, type:  !!\nTo exit, type:  exit";
         //need to add one for get messages spf to UserID
         //and one for getting messages between 2 users
