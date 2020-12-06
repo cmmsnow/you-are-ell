@@ -1,11 +1,8 @@
 package models;
-
 import views.IdTextView;
 import views.MessageTextView;
 
-/*
- * POJO for an Message object
- */
+
 public class Message {
     private String message;
     private String fromid;
@@ -19,6 +16,14 @@ public class Message {
         this.toid = toid;
         this.sequence = sequence;
         this.timestamp = timestamp;
+    }
+
+    public Message (String message, String fromid, String toid) {
+        this.message = message;
+        this.fromid = fromid;
+        this.toid = toid;
+        this.sequence = "";
+        this.timestamp = "";
     }
 
     public Message(){}

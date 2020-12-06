@@ -23,11 +23,12 @@ public class YouAreEll {
 
     public static void main(String[] args) throws IOException {
         YouAreEll urlhandler = new YouAreEll(new MessageController(), new IdController(), new TransactionController());
-        System.out.println(urlhandler.methodSorter("/ids", "GET", ""));
+        //System.out.println(urlhandler.methodSorter("/ids", "GET", ""));
+        System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
         //System.out.println(urlhandler.methodSorter("/ids", "POST", ""));
         //System.out.println(urlhandler.methodSorter("/ids", "PUT", ""));
         //System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
-        //System.out.println(urlhandler.methodSorter("/recipient-id" + "/messages", "POST", ""));
+        //System.out.println(urlhandler.methodSorter("/messages", "POST", ""));
         //Change ids put & post when i get user input from SimpleShell?
     }
 
@@ -56,22 +57,22 @@ public class YouAreEll {
 
     public String postIdsURLCall(String mainurl, String jpayload) throws IOException {
             String response = transactionController.postIds(mainurl);
-            ArrayList<Id> idsList = idCtrl.getIds(response);
-            System.out.println(idsList);
+            //ArrayList<Id> idsList = idCtrl.getIds(response);
+            //System.out.println(idsList);
             return "nada";
     }
 
     public String putIdsURLCall(String mainurl, String jpayload) throws IOException {
             String response = transactionController.putIds(mainurl);
-            ArrayList<Id> idsList = idCtrl.getIds(response);
-            System.out.println(idsList);
+            //ArrayList<Id> idsList = idCtrl.getIds(response);
+            //System.out.println(idsList);
             return "nada";
     }
 
     public String postMessagesURLCall(String mainurl, String jpayload) throws IOException {
-        String response = transactionController.postIds("/ids" + "/cmmsnow" + mainurl);
-        ArrayList<Id> idsList = idCtrl.getIds(response);
-        System.out.println(idsList);
+        String response = transactionController.postMessages("/ids" + "/cmmsnow" + "/messages");
+        //ArrayList<Id> idsList = idCtrl.getIds(response);
+        //System.out.println(idsList);
         return "nada";
     }
 

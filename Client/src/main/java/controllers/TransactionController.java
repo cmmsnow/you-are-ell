@@ -63,6 +63,22 @@ public class TransactionController {
         return response.body().string();
     }
 
-
+    public String postMessages(String path) throws IOException {
+        String body="{\n" +
+//                "        \"sequence\": \"-\",\n" +
+//                "        \"timestamp\": \"2020-12-06T15:31:34.647829142Z\",\n" +
+                "        \"fromid\": \"newbie\",\n" +
+                "        \"toid\": \"cmmsnow\",\n" +
+                "        \"message\": \"We meet again.\"\n" +
+                "    }";
+        RequestBody json = RequestBody.create(mediaType, body);
+        Request request = new Request.Builder()
+                .url(rootURL + path)
+                .method("POST", json)
+                //.addHeader("Content-Type", "application/json")
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
 }
 

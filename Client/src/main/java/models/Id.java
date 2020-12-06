@@ -1,10 +1,7 @@
 package models;
-
 import views.IdTextView;
 
-/*
- * POJO for an Id object
- */
+
 public class Id {
     private String name;
     private String github;
