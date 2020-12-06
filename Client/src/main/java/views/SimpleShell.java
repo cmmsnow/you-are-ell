@@ -17,12 +17,24 @@ public class SimpleShell {
 
 
     public static void prettyPrint(String output) {
-        //still need to fix this
-        String formattedString = "hello [%s] is my name";
+        String formattedString = "\n[%s]";
         String arg1 = output;
         String outputString = String.format(formattedString, arg1);
         System.out.println(outputString);
-        //or like this??  String json = "{\"id\":1,\"name\":\"My bean\"}";
+//        String body="{\n" +
+//                "        \"userid\": \"-\",\n" +
+//                "        \"name\": \"KillMoi\",\n" +
+//                "        \"github\": \"ZZtop\"\n" +
+//                "    }";
+    }
+
+    public static String commandMenu(){
+        String get = "\nCOMMAND OPTIONS:\nTo get list of all users, type:  'ids'\nTo get list of all messages, type:  'messages'";
+        String postId = "\nTo create a new user id, type:  'ids' 'your-name' 'your-github'";
+        String putId ="\nTo change name for github, type:  'ids' 'new-name' 'same-github'";
+        String postMessage = "\nTo post message, type:  'send' 'from-github' 'message' 'to' 'recipient-github'";
+        System.out.println(get + postId + putId + postMessage);
+        return get + postId + putId + postMessage;
     }
 
 
@@ -40,10 +52,11 @@ public class SimpleShell {
         int index = 0;
         //we break out with <ctrl c> -- how to listen for this??
         while (true) {
-            System.out.println("cmd? ");
+            commandMenu();
+            System.out.println("Command? ");
             commandLine = console.readLine();
             String[] commands = commandLine.split(" ");
-            List<String> list = new ArrayList<String>();
+            List<String> commandsList = new ArrayList<String>();
             //can I just: List<String> list = new ArrayList<String>(Arrays.asList(commands));
 
             //if the user entered a return, just loop again -- how??
@@ -57,21 +70,21 @@ public class SimpleShell {
             //loop through to see if parsing worked
             for (int i = 0; i < commands.length; i++) {
                 System.out.println(commands[i]); //***check to see if parsing/split worked***
-                list.add(commands[i]);
+                commandsList.add(commands[i]);
             }
-            System.out.print(list); //***check to see if list was added correctly*** <<how??
-            history.addAll(list);
+            System.out.print(commandsList); //***check to see if list was added correctly*** <<how??
+            history.addAll(commandsList);
             try {
                 //display history of shell with index
-                if (list.get(list.size() - 1).equals("history")) {
+                if (commandsList.get(commandsList.size() - 1).equals("history")) {
                     for (String s : history)
                         System.out.println((index++) + " " + s);
                     continue;
                 }
 
                 //get all ids
-                if (list.contains("ids")) {
-                    //String results = webber.get_ids();
+                if (commandsList.get(commandsList.size() - 1).equals("ids")) {
+                    webber.getURLCall("/ids");
                     //SimpleShell.prettyPrint(results);
                     continue;
                 }
@@ -79,31 +92,31 @@ public class SimpleShell {
                 //get all messages
                 //get all of 1 user's messages
                 //get all messages between 2 people
-                if (list.contains("messages")) {
-                    //String results = webber.get_messages();
+                if (commandsList.get(commandsList.size() - 1).equals("messages")) {
+                    webber.getURLCall("/messages");
                     //SimpleShell.prettyPrint(results);
                     continue;
                 }
 
                 //example: send xt0fer 'Hello old buddy!' to torvalds
-                if (list.contains("send")) {
-                    fromId = list.get(1);
-                    toId = list.get(4);
+                if (commandsList.contains("send")) {
+                    fromId = commandsList.get(1);
+                    toId = commandsList.get(4);
                     webber.postMessagesURLCall(fromId, toId, payload);
                     continue;
                 }
 
                 //!! command returns the last command in history
-                if (list.get(list.size() - 1).equals("!!")) {
+                if (commandsList.get(commandsList.size() - 1).equals("!!")) {
                     pb.command(history.get(history.size() - 2));
 
                 }//!<integer value i> command
-                else if (list.get(list.size() - 1).charAt(0) == '!') {
-                    int b = Character.getNumericValue(list.get(list.size() - 1).charAt(1));
+                else if (commandsList.get(commandsList.size() - 1).charAt(0) == '!') {
+                    int b = Character.getNumericValue(commandsList.get(commandsList.size() - 1).charAt(1));
                     if (b <= history.size())//check if integer entered isn't bigger than history size
                         pb.command(history.get(b));
                 } else {
-                    pb.command(list);
+                    pb.command(commandsList);
                 }
 
                 // wait, wait, what curiousness is this? < no idea

@@ -69,7 +69,7 @@ public class TransactionController {
 //                "        \"timestamp\": \"2020-12-06T15:31:34.647829142Z\",\n" +
                 "        \"fromid\": \"newbie\",\n" +
                 "        \"toid\": \"cmmsnow\",\n" +
-                "        \"message\": \"We meet again.\"\n" +
+                "        \"message\": \"Hola hola hola\"\n" +
                 "    }";
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()

@@ -28,12 +28,12 @@ public class YouAreEll {
         //System.out.println(urlhandler.methodSorter("/ids", "POST", ""));
         //System.out.println(urlhandler.methodSorter("/ids", "PUT", ""));
         //System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
-        //System.out.println(urlhandler.methodSorter("/messages", "POST", ""));
+        System.out.println(urlhandler.methodSorter("/messages", "POST", ""));
         //Change ids put & post when i get user input from SimpleShell?
     }
 
     public boolean methodSorter(String mainurl, String method, String jpayload) throws IOException {
-        if (method.equals("GET")) getURLCall(mainurl, jpayload);
+        if (method.equals("GET")) getURLCall(mainurl);
         if (method.equals("POST") && mainurl.equals("/ids")) postIdsURLCall(mainurl, jpayload);
         if (method.equals("PUT") && mainurl.equals("/ids")) putIdsURLCall(mainurl, jpayload);
         //if (method.equals("POST") && mainurl.contains("/messages")) postMessagesURLCall(fromId, toId, jpayload);
@@ -42,7 +42,7 @@ public class YouAreEll {
         return true;
     }
 
-    public String getURLCall(String mainurl, String jpayload) throws IOException {
+    public String getURLCall(String mainurl) throws IOException {
         if (mainurl.equals("/ids")) {
             String response = transactionController.get(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
@@ -52,7 +52,7 @@ public class YouAreEll {
             ArrayList<Message> messagesList = msgCtrl.getMessages(response);
             System.out.println(messagesList);
         }
-        return "nada";
+        return "";
     }
 
     public String postIdsURLCall(String mainurl, String jpayload) throws IOException {
