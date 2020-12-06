@@ -40,7 +40,7 @@ public class TransactionController {
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()
                 .url(rootURL + path)
-                .method("GET", json)
+                .method("POST", json)
                 .addHeader("Content-Type", "application/json")
                 .build();
         Response response = client.newCall(request).execute();
