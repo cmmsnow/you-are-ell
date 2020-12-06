@@ -49,8 +49,8 @@ public class TransactionController {
 
     public String put(String path) throws IOException {
         String body="{\n" +
-                "        \"userid\": \"-\",\n" +
-                "        \"name\": \"Rocks\",\n" +
+                "        \"userid\": \"b46ba467a94e24292ae392310315b72316c8523d\",\n" +
+                "        \"name\": \"WhippedByThisCourse\",\n" +
                 "        \"github\": \"Yoyo\"\n" +
                 "    }";
         RequestBody json = RequestBody.create(mediaType, body);

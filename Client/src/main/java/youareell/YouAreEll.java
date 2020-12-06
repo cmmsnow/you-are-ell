@@ -1,6 +1,7 @@
 package youareell;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import controllers.*;
 import models.Id;
 import models.Message;
@@ -23,8 +24,11 @@ public class YouAreEll {
     public static void main(String[] args) throws IOException {
         YouAreEll urlhandler = new YouAreEll(new MessageController(), new IdController(), new TransactionController());
         System.out.println(urlhandler.methodSorter("/ids", "GET", ""));
-        System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
-        //Add more of these ^^ for put and post
+        //System.out.println(urlhandler.methodSorter("/ids", "POST", ""));
+        //System.out.println(urlhandler.methodSorter("/ids", "PUT", ""));
+        //System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
+        //Change ids put & post when i get user input from SimpleShell?
+        //Add more of these for messages
     }
 
     public boolean methodSorter(String mainurl, String method, String jpayload) throws IOException {
@@ -39,12 +43,10 @@ public class YouAreEll {
             String response = transactionController.get(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
-            //can say ^ return idsList instead?
         } else if (mainurl.equals("/messages")){
             String response = transactionController.get(mainurl);
             ArrayList<Message> messagesList = msgCtrl.getMessages(response);
             System.out.println(messagesList);
-            //can say ^ return messagesList instead?
         }
         return "nada";
     }
@@ -54,7 +56,6 @@ public class YouAreEll {
             String response = transactionController.post(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
-            //can say ^ return idsList instead?
         } else if (mainurl.equals("/messages")){
 
         }
@@ -66,7 +67,6 @@ public class YouAreEll {
             String response = transactionController.put(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
-            //can say ^ return idsList instead?
         } else if (mainurl.equals("/messages")){
 
         }

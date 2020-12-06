@@ -106,7 +106,7 @@ public class SimpleShell {
                     pb.command(list);
                 }
 
-                // wait, wait, what curiousness is this?
+                // wait, wait, what curiousness is this? < no idea
                 Process process = pb.start();
 
                 //obtain the input stream
