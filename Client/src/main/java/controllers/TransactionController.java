@@ -12,12 +12,12 @@ public class TransactionController {
 
     public TransactionController() throws IOException {
         client = new OkHttpClient();//.newBuilder()
-                //.connectTimeout(5, TimeUnit.MINUTES)
-                //.readTimeout(5, TimeUnit.MINUTES)
-                //.writeTimeout(5, TimeUnit.MINUTES)
-                //.build();
-        mediaType = MediaType.parse("application/json");
-        //Lake had:  mediaType = MediaType.get("application/json; charset=utf-8");
+//                .connectTimeout(5, TimeUnit.MINUTES)
+//                .readTimeout(5, TimeUnit.MINUTES)
+//                .writeTimeout(5, TimeUnit.MINUTES)
+//                .build();
+        mediaType = MediaType.parse("application/json; charset=utf-8");
+        //mediaType = MediaType.get("application/json; charset=utf-8");
         //RequestBody body = RequestBody.create(mediaType, data);
     }
 
@@ -31,9 +31,25 @@ public class TransactionController {
         return response.body().string();
     }
 
-    //post - posting something new
+    public String post(String path) throws IOException {
+        String body="{\n" +
+                "        \"userid\": \"-\",\n" +
+                "        \"name\": \"Waterlicious\",\n" +
+                "        \"github\": \"Yoyo\"\n" +
+                "    }";
+        RequestBody json = RequestBody.create(mediaType, body);
+        Request request = new Request.Builder()
+                .url(rootURL + path)
+                .post(json)
+                .addHeader("Content-Type", "application/json")
+                .build();
+        Response response = client.newCall(request).execute();
+        return response.body().string();
+    }
 
-    //put - updating
+    public String put(String path){
+        return "hellooooo";
+    }
 
 
 }

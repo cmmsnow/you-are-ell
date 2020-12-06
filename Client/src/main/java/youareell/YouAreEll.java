@@ -1,5 +1,6 @@
 package youareell;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import controllers.*;
 import models.Id;
 import models.Message;
@@ -46,9 +47,11 @@ public class YouAreEll {
         return "nada";
     }
 
-    public String postURLCall(String mainurl, String jpayload){
+    public String postURLCall(String mainurl, String jpayload) throws IOException {
         if (mainurl.equals("/ids")){
-
+            String response = transactionController.post(mainurl);
+            ArrayList<Id> idsList = idCtrl.getIds(response);
+            System.out.println(idsList);
         } else if (mainurl.equals("/messages")){
 
         }
@@ -57,7 +60,8 @@ public class YouAreEll {
 
     public String putURLCall(String mainurl, String jpayload){
         if (mainurl.equals("/ids")){
-
+            String response = transactionController.put(mainurl);
+            //etc
         } else if (mainurl.equals("/messages")){
 
         }

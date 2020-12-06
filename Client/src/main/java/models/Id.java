@@ -6,9 +6,9 @@ import views.IdTextView;
  * POJO for an Id object
  */
 public class Id {
-    String name;
-    String github;
-    String userid;
+    private String name;
+    private String github;
+    private String userid;
     
     public Id (String name, String github, String userid) {
         this.name = name;

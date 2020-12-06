@@ -10,6 +10,10 @@ public class MessageTextView {
     }
 
     @Override public String toString() {
-        return String.format("\nSequence: %s,  Timestamp: %s,  From: %s,  To: %s,  Message: %s", message.getSequence(), message.getTimestamp(), message.getFromid(), message.getToid(), message.getMessage());
+        String toId = message.getToid();
+        if (toId.equals("")){
+            toId = "(everybody)";
+        }
+        return String.format("\nSequence: %s,  Timestamp: %s,  From: %s,  To: %s,  Message: %s", message.getSequence(), message.getTimestamp(), message.getFromid(), toId, message.getMessage());
     } 
 }

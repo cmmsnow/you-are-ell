@@ -7,11 +7,11 @@ import views.MessageTextView;
  * POJO for an Message object
  */
 public class Message {
-    String message;
-    String fromid;
-    String toid;
-    String sequence;
-    String timestamp;
+    private String message;
+    private String fromid;
+    private String toid;
+    private String sequence;
+    private String timestamp;
 
     public Message (String message, String fromid, String toid, String sequence, String timestamp) {
         this.message = message;
