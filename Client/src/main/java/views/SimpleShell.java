@@ -10,6 +10,7 @@ import java.util.List;
 import controllers.IdController;
 import controllers.MessageController;
 import controllers.TransactionController;
+import models.Id;
 import youareell.YouAreEll;
 
 // Simple Shell is a Console view for youareell.YouAreEll.
@@ -31,18 +32,17 @@ public class SimpleShell {
     public static String commandMenu(){
         String get = "\nCOMMAND OPTIONS:\nTo get list of all users, type:  'ids'\nTo get list of all messages, type:  'messages'";
         String postId = "\nTo create a new user id, type:  'ids' 'your-name' 'your-github'";
-        String putId ="\nTo change name for github, type:  'ids' 'new-name' 'same-github'";
+        String putId ="\nTo change name for github, type:  'put' 'userid' 'new-name' 'same-github'";
         String postMessage = "\nTo post message, type:  'send' 'from-github' 'message' 'to' 'recipient-github'";
         String historyExit = "\nTo display shell history, type:  'history'\nTo display last command in history, type:  '!!'\nTo exit, type:  'exit'";
+        //need to add one for get messages spf to UserID
+        //and one for getting messages between 2 users
         System.out.println(get + postId + putId + postMessage + historyExit);
         return get + postId + putId + postMessage + historyExit;
     }
 
 
     public static void main(String[] args) throws java.io.IOException {
-        String fromId = "";
-        String toId = "";
-        String payload = "";
         YouAreEll webber = new YouAreEll(new MessageController(), new IdController(), new TransactionController());
         
         String commandLine;
@@ -58,7 +58,6 @@ public class SimpleShell {
             commandLine = console.readLine();
             String[] commands = commandLine.split(" ");
             List<String> commandsList = new ArrayList<String>();
-            //can I just: List<String> list = new ArrayList<String>(Arrays.asList(commands));
 
             //if the user entered a return, just loop again -- how??
             if (commandLine.equals(""))
@@ -86,23 +85,36 @@ public class SimpleShell {
                 //get all ids
                 if (commandsList.get(commandsList.size() - 1).equals("ids")) {
                     webber.getURLCall("/ids");
-                    //SimpleShell.prettyPrint(results);
                     continue;
                 }
 
                 //get all messages
-                //get all of 1 user's messages
-                //get all messages between 2 people
                 if (commandsList.get(commandsList.size() - 1).equals("messages")) {
                     webber.getURLCall("/messages");
-                    //SimpleShell.prettyPrint(results);
                     continue;
                 }
 
+                //post new id
+                if ((commandsList.size() == 3) && (commandsList.get(0).equals("ids"))){
+                    String name = commandsList.get(1);
+                    String github = commandsList.get(2);
+                    webber.postIdsURLCall(name, github);
+                }
+
+                //change id name
+                if ((commandsList.size() == 4) && (commandsList.get(0).equals("put"))){
+                    String userid = commandsList.get(1);
+                    String name = commandsList.get(2);
+                    String github = commandsList.get(3);
+                    webber.putIdsURLCall(userid, name, github);
+                }
+
                 //example: send xt0fer 'Hello old buddy!' to torvalds
+                //reparse looking for ''
                 if (commandsList.contains("send")) {
-                    fromId = commandsList.get(1);
-                    toId = commandsList.get(4);
+                    String fromId = commandsList.get(1);
+                    String payload = commandsList.get(2);
+                    String toId = commandsList.get(4);
                     webber.postMessagesURLCall(fromId, toId, payload);
                     continue;
                 }

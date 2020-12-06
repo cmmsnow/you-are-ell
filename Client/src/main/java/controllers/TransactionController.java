@@ -31,54 +31,57 @@ public class TransactionController {
         return response.body().string();
     }
 
-    public String postIds(String path) throws IOException {
+    public String postIds(String name, String github) throws IOException {
         String body="{\n" +
                 "        \"userid\": \"-\",\n" +
-                "        \"name\": \"KillMoi\",\n" +
-                "        \"github\": \"ZZtop\"\n" +
+                "        \"name\": " + name + ",\n" +
+                "        \"github\": " + github + "\n" +
                 "    }";
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()
-                .url(rootURL + path)
+                .url(rootURL + "/ids")
                 .method("POST", json)
                 //.addHeader("Content-Type", "application/json")
                 .build();
-        Response response = client.newCall(request).execute();
-        return response.body().string();
+        client.newCall(request).execute();
+        String response = get("/ids");
+        return response;
     }
 
-    public String putIds(String path) throws IOException {
+    public String putIds(String userid, String name, String github) throws IOException {
         String body="{\n" +
-                "        \"userid\": \"b46ba467a94e24292ae392310315b72316c8523d\",\n" +
-                "        \"name\": \"WhippedByThisCourse\",\n" +
-                "        \"github\": \"Yoyo\"\n" +
+                "        \"userid\": " + userid + ",\n" +
+                "        \"name\": " + name + ",\n" +
+                "        \"github\": " + github + "\n" +
                 "    }";
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()
-                .url(rootURL + path)
+                .url(rootURL + "/ids")
                 .method("PUT", json)
                 //.addHeader("Content-Type", "application/json")
                 .build();
-        Response response = client.newCall(request).execute();
-        return response.body().string();
+        client.newCall(request).execute();
+        String response = get("/ids");
+        return response;
     }
 
-    public String postMessages(String path) throws IOException {
+    public String postMessages(String fromId, String toId, String payload) throws IOException {
         String body="{\n" +
 //                "        \"sequence\": \"-\",\n" +
 //                "        \"timestamp\": \"2020-12-06T15:31:34.647829142Z\",\n" +
-                "        \"fromid\": \"newbie\",\n" +
-                "        \"toid\": \"cmmsnow\",\n" +
-                "        \"message\": \"Hola hola hola\"\n" +
+                "        \"fromid\": " + fromId + ",\n" +
+                "        \"toid\": " + toId + ",\n" +
+                "        \"message\": " + payload + "\n" +
                 "    }";
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()
-                .url(rootURL + path)
+                .url(rootURL + "/ids" + toId + "/messages")
                 .method("POST", json)
                 //.addHeader("Content-Type", "application/json")
                 .build();
-        Response response = client.newCall(request).execute();
-        return response.body().string();
+        client.newCall(request).execute();
+        String response = get("/messages");
+        return response;
     }
 }
 
