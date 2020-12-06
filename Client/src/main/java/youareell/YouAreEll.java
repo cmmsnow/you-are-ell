@@ -24,7 +24,7 @@ public class YouAreEll {
     public static void main(String[] args) throws IOException {
         YouAreEll urlhandler = new YouAreEll(new MessageController(), new IdController(), new TransactionController());
         //System.out.println(urlhandler.methodSorter("/ids", "GET", ""));
-        System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
+        //System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
         //System.out.println(urlhandler.methodSorter("/ids", "POST", ""));
         //System.out.println(urlhandler.methodSorter("/ids", "PUT", ""));
         //System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
@@ -36,7 +36,7 @@ public class YouAreEll {
         if (method.equals("GET")) getURLCall(mainurl, jpayload);
         if (method.equals("POST") && mainurl.equals("/ids")) postIdsURLCall(mainurl, jpayload);
         if (method.equals("PUT") && mainurl.equals("/ids")) putIdsURLCall(mainurl, jpayload);
-        if (method.equals("POST") && mainurl.contains("/messages")) postMessagesURLCall(mainurl, jpayload);
+        //if (method.equals("POST") && mainurl.contains("/messages")) postMessagesURLCall(fromId, toId, jpayload);
         //need to add one for get messages spf to UserID
         //and one for getting messages between 2 users
         return true;
@@ -69,8 +69,10 @@ public class YouAreEll {
             return "nada";
     }
 
-    public String postMessagesURLCall(String mainurl, String jpayload) throws IOException {
-        String response = transactionController.postMessages("/ids" + "/cmmsnow" + "/messages");
+    public String postMessagesURLCall(String fromId, String toId, String jpayload) throws IOException {
+        //create message object with input from simple shell
+        //convert message to JSON string & send to server
+        String response = transactionController.postMessages("/ids" + toId + "/messages");
         //ArrayList<Id> idsList = idCtrl.getIds(response);
         //System.out.println(idsList);
         return "nada";

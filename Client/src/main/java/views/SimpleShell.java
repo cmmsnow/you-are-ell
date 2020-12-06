@@ -27,7 +27,9 @@ public class SimpleShell {
 
 
     public static void main(String[] args) throws java.io.IOException {
-
+        String fromId = "";
+        String toId = "";
+        String payload = "";
         YouAreEll webber = new YouAreEll(new MessageController(), new IdController(), new TransactionController());
         
         String commandLine;
@@ -67,25 +69,27 @@ public class SimpleShell {
                     continue;
                 }
 
-                // Specific Commands.
-
-                // ids
+                //get all ids
                 if (list.contains("ids")) {
                     //String results = webber.get_ids();
                     //SimpleShell.prettyPrint(results);
                     continue;
                 }
 
-                // messages
+                //get all messages
+                //get all of 1 user's messages
+                //get all messages between 2 people
                 if (list.contains("messages")) {
                     //String results = webber.get_messages();
                     //SimpleShell.prettyPrint(results);
                     continue;
                 }
-                // you need to add a bunch more.
-                //need to find out what commands are used
+
+                //example: send xt0fer 'Hello old buddy!' to torvalds
                 if (list.contains("send")) {
-                    //something idk
+                    fromId = list.get(1);
+                    toId = list.get(4);
+                    webber.postMessagesURLCall(fromId, toId, payload);
                     continue;
                 }
 
