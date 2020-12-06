@@ -15,7 +15,7 @@ public class YouAreEll {
     private IdController idCtrl;
     private TransactionController transactionController;
 
-    public YouAreEll (MessageController m, IdController j, TransactionController t) {
+    public YouAreEll(MessageController m, IdController j, TransactionController t) {
         this.msgCtrl = m;
         this.idCtrl = j;
         this.transactionController = t;
@@ -27,23 +27,25 @@ public class YouAreEll {
         //System.out.println(urlhandler.methodSorter("/ids", "POST", ""));
         //System.out.println(urlhandler.methodSorter("/ids", "PUT", ""));
         //System.out.println(urlhandler.methodSorter("/messages", "GET", ""));
+        //System.out.println(urlhandler.methodSorter("/messages", "POST", ""));
+        //System.out.println(urlhandler.methodSorter("/messages", "PUT", ""));
         //Change ids put & post when i get user input from SimpleShell?
         //Add more of these for messages
     }
 
     public boolean methodSorter(String mainurl, String method, String jpayload) throws IOException {
         if (method.equals("GET")) getURLCall(mainurl, jpayload);
-        if (method.equals("POST")) postURLCall(mainurl, jpayload);
-        if (method.equals("PUT")) putURLCall(mainurl, jpayload);
+        if (method.equals("POST") && mainurl.equals("/ids")) postIdsURLCall(mainurl, jpayload);
+        if (method.equals("PUT") && mainurl.equals("/ids")) putIdsURLCall(mainurl, jpayload);
         return true;
     }
 
     public String getURLCall(String mainurl, String jpayload) throws IOException {
-        if (mainurl.equals("/ids")){
+        if (mainurl.equals("/ids")) {
             String response = transactionController.get(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
-        } else if (mainurl.equals("/messages")){
+        } else if (mainurl.equals("/messages")) {
             String response = transactionController.get(mainurl);
             ArrayList<Message> messagesList = msgCtrl.getMessages(response);
             System.out.println(messagesList);
@@ -51,26 +53,22 @@ public class YouAreEll {
         return "nada";
     }
 
-    public String postURLCall(String mainurl, String jpayload) throws IOException {
-        if (mainurl.equals("/ids")){
-            String response = transactionController.post(mainurl);
+    public String postIdsURLCall(String mainurl, String jpayload) throws IOException {
+        if (mainurl.equals("/ids")) {
+            String response = transactionController.postIds(mainurl);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
-        } else if (mainurl.equals("/messages")){
+            return "nada";
+        }
+
+        public String putIdsURLCall(String mainurl, String jpayload) throws IOException {
+            if (mainurl.equals("/ids")) {
+                String response = transactionController.putIds(mainurl);
+                ArrayList<Id> idsList = idCtrl.getIds(response);
+                System.out.println(idsList);
+                return "nada";
+            }
 
         }
-        return "nada";
     }
-
-    public String putURLCall(String mainurl, String jpayload) throws IOException {
-        if (mainurl.equals("/ids")){
-            String response = transactionController.put(mainurl);
-            ArrayList<Id> idsList = idCtrl.getIds(response);
-            System.out.println(idsList);
-        } else if (mainurl.equals("/messages")){
-
-        }
-        return "nada";
-    }
-
 }
