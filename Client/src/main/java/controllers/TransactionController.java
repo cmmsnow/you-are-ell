@@ -1,5 +1,6 @@
 package controllers;
 
+import com.sun.jmx.snmp.Timestamp;
 import okhttp3.*;
 
 import java.io.IOException;
@@ -67,6 +68,7 @@ public class TransactionController {
     }
 
     public String postMessages(String fromId, String toId, String payload) throws IOException {
+        //Timestamp timestamp = new Timestamp();
         String body="{\n" +
                 "        \"sequence\": \"-\",\n" +
                 "        \"timestamp\": \"2020-12-06T16:28:23.044849931Z\",\n" +
