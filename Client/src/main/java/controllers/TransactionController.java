@@ -26,7 +26,7 @@ public class TransactionController {
         Request request = new Request.Builder()
                 .url(rootURL + path)
                 .method("GET", null)
-                //.addHeader("Content-Type", "application/json")
+                .addHeader("Content-Type", "application/json")
                 .build();
         Response response = client.newCall(request).execute();
         return response.body().string();
@@ -46,7 +46,6 @@ public class TransactionController {
                 .addHeader("Content-Type", "application/json")
                 .build();
         Response response = client.newCall(request).execute();
-        //String response = get("/ids");
         return response.body().string();
     }
 
@@ -63,7 +62,6 @@ public class TransactionController {
                 .addHeader("Content-Type", "application/json")
                 .build();
         Response response = client.newCall(request).execute();
-        //String response = get("/ids");
         return response.body().string();
     }
 
@@ -83,7 +81,6 @@ public class TransactionController {
                 .addHeader("Content-Type", "application/json")
                 .build();
         Response response = client.newCall(request).execute();
-        //String response = get("/messages");
         return response.body().string();
     }
 }

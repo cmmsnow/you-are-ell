@@ -1,5 +1,4 @@
 package views;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,7 +34,6 @@ public class SimpleShell {
         System.out.println(get + postId + putId + postMessage + historyExit);
         return get + postId + putId + postMessage + historyExit;
     }
-
 
     public static void main(String[] args) throws java.io.IOException {
         YouAreEll webber = new YouAreEll(new MessageController(), new IdController(), new TransactionController());
@@ -150,8 +148,6 @@ public class SimpleShell {
                 while ((line = br.readLine()) != null)
                     System.out.println(line);
                 br.close();
-
-
             }
 
             //catch ioexception, output appropriate message, resume waiting for input
@@ -166,10 +162,6 @@ public class SimpleShell {
              * 4. obtain the output stream
              * 5. output the contents returned by the command
              */
-
         }
-
-
     }
-
 }
