@@ -32,9 +32,11 @@ public class TransactionController {
     }
 
     public String postIds(String name, String github) throws IOException {
+        String userid="-";
         String body="{\n" +
-                "        \"name\": " + name + ",\n" +
-                "        \"github\": " + github + "\n" +
+                "\n\t\"userid\": \"" + userid + "\"," +
+                "\n\t\"name\": \"" + name + "\"," +
+                "\n\t\"github\": \"" + github + "\"" +
                 "    }";
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()
@@ -66,8 +68,8 @@ public class TransactionController {
 
     public String postMessages(String fromId, String toId, String payload) throws IOException {
         String body="{\n" +
-//                "        \"sequence\": \"-\",\n" +
-//                "        \"timestamp\": \"2020-12-06T15:31:34.647829142Z\",\n" +
+                "        \"sequence\": \"-\",\n" +
+                "        \"timestamp\": \"2020-12-06T16:28:23.044849931Z\",\n" +
                 "        \"fromid\": " + fromId + ",\n" +
                 "        \"toid\": " + toId + ",\n" +
                 "        \"message\": " + payload + "\n" +
@@ -76,7 +78,7 @@ public class TransactionController {
         Request request = new Request.Builder()
                 .url(rootURL + "/ids" + toId + "/messages")
                 .method("POST", json)
-                //.addHeader("Content-Type", "application/json")
+                .addHeader("Content-Type", "application/json")
                 .build();
         Response response = client.newCall(request).execute();
         //String response = get("/messages");

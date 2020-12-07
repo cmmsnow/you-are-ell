@@ -39,36 +39,50 @@ public class YouAreEll {
 //        return true;
 //    }
 
-    public ArrayList getURLCall(String mainurl) throws IOException {
-        if (mainurl.equals("/ids")) {
-            String response = transactionController.get(mainurl);
-            ArrayList<Id> idsList = idCtrl.getIds(response);
-            System.out.println(idsList);
-            return idsList;
-        } else if (mainurl.equals("/messages")) {
-            String response = transactionController.get(mainurl);
-            ArrayList<Message> messagesList = msgCtrl.getMessages(response);
-            System.out.println(messagesList);
-            return messagesList;
-        }
-        return null;
+//    public ArrayList getURLCall(String mainurl) throws IOException {
+//        if (mainurl.equals("/ids")) {
+//            String response = transactionController.get(mainurl);
+//            ArrayList<Id> idsList = idCtrl.getIds(response);
+//            System.out.println(idsList);
+//            return idsList;
+//        } else if (mainurl.equals("/messages")) {
+//            String response = transactionController.get(mainurl);
+//            ArrayList<Message> messagesList = msgCtrl.getMessages(response);
+//            System.out.println(messagesList);
+//            return messagesList;
+//        }
+//        return null;
+//    }
+
+    public ArrayList<Id> getIdURLCall(String mainurl) throws IOException {
+        String response = transactionController.get(mainurl);
+        ArrayList<Id> idsList = idCtrl.getIds(response);
+        System.out.println(idsList);
+        return idsList;
     }
 
-    public ArrayList postIdsURLCall(String name, String github) throws IOException {
+    public ArrayList<Message> getMessagesURLCall(String mainurl) throws IOException {
+        String response = transactionController.get(mainurl);
+        ArrayList<Message> messagesList = msgCtrl.getMessages(response);
+        System.out.println(messagesList);
+        return messagesList;
+    }
+
+    public ArrayList<Id> postIdsURLCall(String name, String github) throws IOException {
             String response = transactionController.postIds(name, github);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
             return idsList;
     }
 
-    public ArrayList putIdsURLCall(String userid, String name, String github) throws IOException {
+    public ArrayList<Id> putIdsURLCall(String userid, String name, String github) throws IOException {
             String response = transactionController.putIds(userid, name, github);
             ArrayList<Id> idsList = idCtrl.getIds(response);
             System.out.println(idsList);
             return idsList;
     }
 
-    public ArrayList postMessagesURLCall(String fromId, String toId, String jpayload) throws IOException {
+    public ArrayList<Message> postMessagesURLCall(String fromId, String toId, String jpayload) throws IOException {
         String response = transactionController.postMessages(fromId, toId, jpayload);
         ArrayList<Message> messagesList = msgCtrl.getMessages(response);
         System.out.println(messagesList);

@@ -80,13 +80,11 @@ public class SimpleShell {
                 //get all ids
                 if (commandsList.contains("ids")) {
                     if (commandsList.get(0).equals("ids") && commandsList.size() == 1) {
-                        webber.getURLCall("/ids");
+                        webber.getIdURLCall("/ids");
                         continue;
-                    }
-                } else {
-                    if (commandsList.get(0).equals("ids") && commandsList.size() == 3) {
-                        Boolean found=false;
-                        ArrayList<Id> idsList =  webber.getURLCall("/ids");
+                    } else if (commandsList.get(0).equals("ids") && commandsList.size() == 3) {
+                        boolean found=false;
+                        ArrayList<Id> idsList = webber.getIdURLCall("/ids");
                         for (int i = 0; i < idsList.size(); i++) {
                             if (idsList.get(i).getGithub().equals(commandsList.get(2))) {
                                 idsList.get(i).setName(commandsList.get(1));
@@ -104,12 +102,11 @@ public class SimpleShell {
 
                 //get all messages
                 if (commandsList.get(commandsList.size() - 1).equals("messages")) {
-                    webber.getURLCall("/messages");
+                    webber.getMessagesURLCall("/messages");
                     continue;
                 }
 
                 //example: send xt0fer 'Hello old buddy!' to torvalds
-                //reparse looking for ''
                 if (commandsList.contains("send")) {
                     String fromId = commandsList.get(1);
                     String message = commandsList.get(2);
