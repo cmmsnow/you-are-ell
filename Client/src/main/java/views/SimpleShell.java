@@ -12,7 +12,7 @@ import controllers.TransactionController;
 import models.Id;
 import youareell.YouAreEll;
 
-// Simple Shell is a Console view for youareell.YouAreEll.
+// STILL BROKEN: post message & put ID
 public class SimpleShell {
 
 
@@ -28,7 +28,7 @@ public class SimpleShell {
         String postId = "\nTo create a new user id, type:  ids your-name your-github";
         String putId ="\nTo change name for github, type:  ids new-name same-github";
         String postMessage = "\nTo post message, type:  send your-github 'your message' to recipient-github";
-        String historyExit = "\nTo display shell history, type:  history\nTo display last command in history, type:  !!\nTo exit, type:  exit";
+        String historyExit = "\nTo display shell history, type:  history\nTo exit, type:  exit";
         //need to add one for get messages spf to UserID
         //and one for getting messages between 2 users
         System.out.println(get + postId + putId + postMessage + historyExit);
@@ -38,7 +38,7 @@ public class SimpleShell {
     public static void main(String[] args) throws java.io.IOException {
         YouAreEll webber = new YouAreEll(new MessageController(), new IdController(), new TransactionController());
         
-        String commandLine;
+        String commandLine = "";
         BufferedReader console = new BufferedReader(new InputStreamReader(System.in));
 
         ProcessBuilder pb = new ProcessBuilder();
@@ -47,12 +47,16 @@ public class SimpleShell {
         //we break out with <ctrl c> -- how to listen for this??
         while (true) {
             commandMenu();
+            Boolean written = false;
             System.out.println("Command? ");
-            commandLine = console.readLine();
+            //if the user entered a return, just loop again
+            while (!written){
+                commandLine = console.readLine();
+                if (!commandLine.equals("")) written = true;
+            }
             String[] commands = commandLine.split(" ");
             List<String> commandsList = new ArrayList<String>();
 
-            //if the user entered a return, just loop again -- how??
             if (commandLine.equals(""))
                 continue;
             if (commandLine.equals("exit")) {
@@ -65,7 +69,7 @@ public class SimpleShell {
                 System.out.println(commands[i]); //***check to see if parsing/split worked***
                 commandsList.add(commands[i]);
             }
-            System.out.print(commandsList); //***check to see if list was added correctly*** <<how??
+            System.out.print(commandsList); //***check to see if list was added correctly***
             history.addAll(commandsList);
             try {
                 //display history of shell with index
@@ -75,7 +79,7 @@ public class SimpleShell {
                     continue;
                 }
 
-                //get all ids
+                //get/post/put ids
                 if (commandsList.contains("ids")) {
                     if (commandsList.get(0).equals("ids") && commandsList.size() == 1) {
                         webber.getIdURLCall("/ids");
@@ -86,6 +90,7 @@ public class SimpleShell {
                         for (int i = 0; i < idsList.size(); i++) {
                             if (idsList.get(i).getGithub().equals(commandsList.get(2))) {
                                 idsList.get(i).setName(commandsList.get(1));
+                                //what is broken here?!
                                 webber.putIdsURLCall(idsList.get(i).getUserid(), idsList.get(i).getName(), idsList.get(i).getGithub());
                                 found = true;
                                 continue;
@@ -105,10 +110,11 @@ public class SimpleShell {
                 }
 
                 //example: send xt0fer 'Hello old buddy!' to torvalds
+                //something about this is still broken, idk what
                 if (commandsList.contains("send")) {
                     String fromId = commandsList.get(1);
                     String message = commandsList.get(2);
-                    String toId = commandsList.get(4);
+                    String toId = commandsList.get(commandsList.size()-1);
                     int messageEnd = 2;
                     for (int i=0; i<commandsList.size(); i++){
                         if (commandsList.get(i).equals("to")) messageEnd = i-1;
