@@ -31,12 +31,6 @@ public class TransactionController {
     }
 
     public String postIds(Id id) throws IOException {
-//        String userid="-";
-//        String body="{\n" +
-//                "\n\t\"userid\": \"" + userid + "\"," +
-//                "\n\t\"name\": \"" + name + "\"," +
-//                "\n\t\"github\": \"" + github + "\"" +
-//                "    }";
         String body = new ObjectMapper().writeValueAsString(id);
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()
@@ -66,17 +60,10 @@ public class TransactionController {
     }
 
     public String postMessages(String toId, Message message) throws IOException {
-//        String body="{\n" +
-//                "        \"sequence\": \"-\",\n" +
-//                "        \"timestamp\": \"2020-12-06T16:28:23.044849931Z\",\n" +
-//                "        \"fromid\": " + fromId + ",\n" +
-//                "        \"toid\": " + toId + ",\n" +
-//                "        \"message\": " + payload + "\n" +
-//                "    }";
         String body = new ObjectMapper().writeValueAsString(message);
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()
-                .url(rootURL + "/ids" + toId + "/messages")
+                .url(rootURL + "/ids/" + toId + "/messages")
                 .method("POST", json)
                 .addHeader("Content-Type", "application/json")
                 .build();
