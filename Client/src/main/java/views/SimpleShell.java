@@ -24,11 +24,11 @@ public class SimpleShell {
     }
 
     public static String commandMenu(){
-        String get = "\nCOMMAND OPTIONS:\nTo get list of all users, type:  'ids'\nTo get list of all messages, type:  'messages'";
-        String postId = "\nTo create a new user id, type:  ids your-name your-github";
-        String putId ="\nTo change name for github, type:  ids new-name same-github";
-        String postMessage = "\nTo post message, type:  send your-github 'your message' to recipient-github";
-        String historyExit = "\nTo display shell history, type:  history\nTo exit, type:  exit";
+        String get = "\nCOMMAND OPTIONS:\nTo get list of all users, type:      | ids |\nTo get list of all messages, type:   | messages |";
+        String postId = "\nTo create a new user id, type:       | ids | your-name | your-github |";
+        String putId ="\nTo change name for github, type:     | ids | user-id | new-name | same-github |";
+        String postMessage = "\nTo post message, type:               | send | your-github | 'your message' | to | recipient-github |";
+        String historyExit = "\nTo display shell history, type:      | history |\nTo exit, type:                       | exit |";
         //need to add one for get messages spf to UserID
         //and one for getting messages between 2 users
         System.out.println(get + postId + putId + postMessage + historyExit);
@@ -79,29 +79,47 @@ public class SimpleShell {
                     continue;
                 }
 
-                //get/post/put ids
-                if (commandsList.contains("ids")) {
-                    if (commandsList.get(0).equals("ids") && commandsList.size() == 1) {
-                        webber.getIdURLCall("/ids");
-                        continue;
-                    } else if (commandsList.get(0).equals("ids") && commandsList.size() == 3) {
-                        boolean found=false;
-                        ArrayList<Id> idsList = webber.getIdURLCall("/ids");
-                        for (int i = 0; i < idsList.size(); i++) {
-                            if (idsList.get(i).getGithub().equals(commandsList.get(2))) {
-                                idsList.get(i).setName(commandsList.get(1));
-                                //what is broken here?!
-                                webber.putIdsURLCall(idsList.get(i).getUserid(), idsList.get(i).getName(), idsList.get(i).getGithub());
-                                found = true;
-                                continue;
-                            }
-                        }
-                        if (!found) {
-                            webber.postIdsURLCall(commandsList.get(1), commandsList.get(2));
-                            continue;
-                        }
-                    }
+                //get ids
+                if (commandsList.get(0).equals("ids") && commandsList.size() == 1) {
+                    webber.getIdURLCall("/ids");
+                    continue;
                 }
+
+                //post ids
+                if (commandsList.get(0).equals("ids") && commandsList.size() == 3){
+                    webber.postIdsURLCall(commandsList.get(1), commandsList.get(2));
+                    continue;
+                }
+
+                //put ids
+                if (commandsList.get(0).equals("ids") && commandsList.size() == 4){
+                    webber.putIdsURLCall(commandsList.get(1), commandsList.get(2), commandsList.get(3));
+                    continue;
+                }
+
+                //get/post/put ids
+//                if (commandsList.contains("ids")) {
+//                    if (commandsList.get(0).equals("ids") && commandsList.size() == 1) {
+//                        webber.getIdURLCall("/ids");
+//                        continue;
+//                    } else if (commandsList.get(0).equals("ids") && commandsList.size() == 3) {
+//                        boolean found=false;
+//                        ArrayList<Id> idsList = webber.getIdURLCall("/ids");
+//                        for (int i = 0; i < idsList.size(); i++) {
+//                            if (idsList.get(i).getGithub().equals(commandsList.get(2))) {
+//                                idsList.get(i).setName(commandsList.get(1));
+//                                //what is broken here?!
+//                                webber.putIdsURLCall(idsList.get(i).getUserid(), idsList.get(i).getName(), idsList.get(i).getGithub());
+//                                found = true;
+//                                continue;
+//                            }
+//                        }
+//                        if (!found) {
+//                            webber.postIdsURLCall(commandsList.get(1), commandsList.get(2));
+//                            continue;
+//                        }
+//                    }
+//                }
 
                 //get all messages
                 if (commandsList.get(commandsList.size() - 1).equals("messages")) {
