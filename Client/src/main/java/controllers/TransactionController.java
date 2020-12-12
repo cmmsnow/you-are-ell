@@ -43,11 +43,6 @@ public class TransactionController {
     }
 
     public String putIds(Id id) throws IOException {
-//        String body="{\n" +
-//                "        \"userid\": " + userid + ",\n" +
-//                "        \"name\": " + name + ",\n" +
-//                "        \"github\": " + github + "\n" +
-//                "    }";
         String body = new ObjectMapper().writeValueAsString(id);
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()

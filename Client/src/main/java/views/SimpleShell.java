@@ -29,8 +29,8 @@ public class SimpleShell {
         String putId ="\nTo change name for github, type:     | ids | user-id | new-name | same-github |";
         String postMessage = "\nTo post message, type:               | send | your-github | 'your message' | to | recipient-github |";
         String historyExit = "\nTo display shell history, type:      | history |\nTo exit, type:                       | exit |";
-        //need to add one for get messages spf to UserID
-        //and one for getting messages between 2 users
+        //add one for get messages spf to UserID?
+        //add one for getting messages between 2 users?
         System.out.println(get + postId + putId + postMessage + historyExit);
         return get + postId + putId + postMessage + historyExit;
     }
