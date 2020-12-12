@@ -1,16 +1,15 @@
 package controllers;
 
-import com.sun.jmx.snmp.Timestamp;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import models.Id;
+import models.Message;
 import okhttp3.*;
-
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 public class TransactionController {
     private String rootURL = "http://zipcode.rocks:8085";
     private OkHttpClient client;
     private MediaType mediaType;
-    //private RequestBody json;
 
     public TransactionController() throws IOException {
         client = new OkHttpClient();//.newBuilder()
@@ -19,7 +18,6 @@ public class TransactionController {
 //                .writeTimeout(5, TimeUnit.MINUTES)
 //                .build();
         mediaType = MediaType.parse("application/json; charset=utf-8"); //Lake used ".get()"
-        //json = RequestBody.create(mediaType, data);
     }
 
     public String get(String path) throws IOException {
@@ -32,13 +30,14 @@ public class TransactionController {
         return response.body().string();
     }
 
-    public String postIds(String name, String github) throws IOException {
-        String userid="-";
-        String body="{\n" +
-                "\n\t\"userid\": \"" + userid + "\"," +
-                "\n\t\"name\": \"" + name + "\"," +
-                "\n\t\"github\": \"" + github + "\"" +
-                "    }";
+    public String postIds(Id id) throws IOException {
+//        String userid="-";
+//        String body="{\n" +
+//                "\n\t\"userid\": \"" + userid + "\"," +
+//                "\n\t\"name\": \"" + name + "\"," +
+//                "\n\t\"github\": \"" + github + "\"" +
+//                "    }";
+        String body = new ObjectMapper().writeValueAsString(id);
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()
                 .url(rootURL + "/ids")
@@ -49,12 +48,13 @@ public class TransactionController {
         return response.body().string();
     }
 
-    public String putIds(String userid, String name, String github) throws IOException {
-        String body="{\n" +
-                "        \"userid\": " + userid + ",\n" +
-                "        \"name\": " + name + ",\n" +
-                "        \"github\": " + github + "\n" +
-                "    }";
+    public String putIds(Id id) throws IOException {
+//        String body="{\n" +
+//                "        \"userid\": " + userid + ",\n" +
+//                "        \"name\": " + name + ",\n" +
+//                "        \"github\": " + github + "\n" +
+//                "    }";
+        String body = new ObjectMapper().writeValueAsString(id);
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()
                 .url(rootURL + "/ids")
@@ -65,15 +65,15 @@ public class TransactionController {
         return response.body().string();
     }
 
-    public String postMessages(String fromId, String toId, String payload) throws IOException {
-        //Timestamp timestamp = new Timestamp();
-        String body="{\n" +
-                "        \"sequence\": \"-\",\n" +
-                "        \"timestamp\": \"2020-12-06T16:28:23.044849931Z\",\n" +
-                "        \"fromid\": " + fromId + ",\n" +
-                "        \"toid\": " + toId + ",\n" +
-                "        \"message\": " + payload + "\n" +
-                "    }";
+    public String postMessages(String toId, Message message) throws IOException {
+//        String body="{\n" +
+//                "        \"sequence\": \"-\",\n" +
+//                "        \"timestamp\": \"2020-12-06T16:28:23.044849931Z\",\n" +
+//                "        \"fromid\": " + fromId + ",\n" +
+//                "        \"toid\": " + toId + ",\n" +
+//                "        \"message\": " + payload + "\n" +
+//                "    }";
+        String body = new ObjectMapper().writeValueAsString(message);
         RequestBody json = RequestBody.create(mediaType, body);
         Request request = new Request.Builder()
                 .url(rootURL + "/ids" + toId + "/messages")

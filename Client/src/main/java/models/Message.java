@@ -22,8 +22,8 @@ public class Message {
         this.message = message;
         this.fromid = fromid;
         this.toid = toid;
-        this.sequence = "";
-        this.timestamp = "";
+        this.sequence = "-";
+        this.timestamp = "2020-12-06T16:28:23.044849931Z";
     }
 
     public Message(){}

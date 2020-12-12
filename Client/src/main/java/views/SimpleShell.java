@@ -109,13 +109,14 @@ public class SimpleShell {
                     continue;
                 }
 
+                //something about this is still broken
                 //example: send xt0fer 'Hello old buddy!' to torvalds
-                //something about this is still broken, idk what
                 if (commandsList.contains("send")) {
                     String fromId = commandsList.get(1);
                     String message = commandsList.get(2);
                     String toId = commandsList.get(commandsList.size()-1);
                     int messageEnd = 2;
+                    //need to look for quotes instead of 'to'
                     for (int i=0; i<commandsList.size(); i++){
                         if (commandsList.get(i).equals("to")) messageEnd = i-1;
                     }
