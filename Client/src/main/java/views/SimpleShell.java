@@ -12,7 +12,6 @@ import controllers.TransactionController;
 import models.Id;
 import youareell.YouAreEll;
 
-// STILL BROKEN: post message & put ID
 public class SimpleShell {
 
 
@@ -29,8 +28,6 @@ public class SimpleShell {
         String putId ="\nTo change name for github, type:     | ids | user-id | new-name | same-github |";
         String postMessage = "\nTo post message, type:               | send | your-github | 'your message' | to | recipient-github |";
         String historyExit = "\nTo display shell history, type:      | history |\nTo exit, type:                       | exit |";
-        //add one for get messages spf to UserID?
-        //add one for getting messages between 2 users?
         System.out.println(get + postId + putId + postMessage + historyExit);
         return get + postId + putId + postMessage + historyExit;
     }
@@ -44,13 +41,11 @@ public class SimpleShell {
         ProcessBuilder pb = new ProcessBuilder();
         List<String> history = new ArrayList<String>();
         int index = 0;
-        //we break out with <ctrl c> -- how to listen for this??
         while (true) {
             commandMenu();
             Boolean written = false;
             System.out.println("Command? ");
-            //if the user entered a return, just loop again
-            while (!written){
+            while (!written){ // if the user entered a return, this will just loop again
                 commandLine = console.readLine();
                 if (!commandLine.equals("")) written = true;
             }
@@ -64,12 +59,11 @@ public class SimpleShell {
                 break;
             }
 
-            //loop through to see if parsing worked
             for (int i = 0; i < commands.length; i++) {
-                System.out.println(commands[i]); //***check to see if parsing/split worked***
+                System.out.println(commands[i]); // this checks to see if parsing/split worked
                 commandsList.add(commands[i]);
             }
-            System.out.print(commandsList); //***check to see if list was added correctly***
+            System.out.print(commandsList); //this checks to see if list was added correctly
             history.addAll(commandsList);
             try {
                 //display history of shell with index
@@ -97,7 +91,7 @@ public class SimpleShell {
                     continue;
                 }
 
-                //get/post/put ids
+                //get/post/put ids -- a different way to write them.
 //                if (commandsList.contains("ids")) {
 //                    if (commandsList.get(0).equals("ids") && commandsList.size() == 1) {
 //                        webber.getIdURLCall("/ids");
@@ -127,7 +121,7 @@ public class SimpleShell {
                     continue;
                 }
 
-                //something about this is still broken
+                //send message to user
                 //example: send xt0fer 'Hello old buddy!' to torvalds
                 if (commandsList.contains("send")) {
                     String fromId = commandsList.get(1);
@@ -160,7 +154,6 @@ public class SimpleShell {
                     pb.command(commandsList);
                 }
 
-                // wait, wait, what curiousness is this? < no idea
                 Process process = pb.start();
 
                 //obtain the input stream
@@ -179,7 +172,6 @@ public class SimpleShell {
             catch (IOException e) {
                 System.out.println("Input Error, Please try again!");
             }
-            // So what, do you suppose, is the meaning of this comment?
             /** The steps are:
              * 1. parse the input to obtain the command and any parameters
              * 2. create a ProcessBuilder object

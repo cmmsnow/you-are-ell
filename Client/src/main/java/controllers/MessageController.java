@@ -18,7 +18,6 @@ public class MessageController {
     // and only prints messages once.
 
     private HashSet<Message> messagesSeen;
-    // why a HashSet?? - idk to remove duplicates??
 
     public ArrayList<Message> getMessages(String response) throws JsonProcessingException {
         // URL: "/messages/" - Get last 20 msgs - returns an JSON array of message objects
@@ -28,15 +27,10 @@ public class MessageController {
     }
 
     public ArrayList<Message> getMessagesForId(Id Id) {
-        // URL: "/ids/:mygithubid/messages/"
-        // Get last 20 msgs for myid:
-        // returns an JSON array of message objects
         return null;
     }
 
     public Message getMessageForSequence(String seq) {
-        // URL: "/ids/:mygithubid/messages/:sequence"
-        // returns a JSON message object for a sequence number
         return null;
     }
 
@@ -47,11 +41,6 @@ public class MessageController {
     }
 
     public Message postMessage(Id myId, Id toId, Message msg) {
-        // URL: "/ids/:mygithubid/messages/"
-        // Create a new message in timeline:
-        // Need to POST a new message object, and will get back one with a
-        // message sequence number and timestamp of the server inserted
-        // send as body of POST request to "http://zipcode.rocks:8085/ids/xt0fer/messages/"
         return null;
     }
  

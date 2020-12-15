@@ -12,12 +12,8 @@ public class TransactionController {
     private MediaType mediaType;
 
     public TransactionController() throws IOException {
-        client = new OkHttpClient();//.newBuilder()
-//                .connectTimeout(5, TimeUnit.MINUTES)
-//                .readTimeout(5, TimeUnit.MINUTES)
-//                .writeTimeout(5, TimeUnit.MINUTES)
-//                .build();
-        mediaType = MediaType.parse("application/json; charset=utf-8"); //Lake used ".get()"
+        client = new OkHttpClient();
+        mediaType = MediaType.parse("application/json; charset=utf-8");
     }
 
     public String get(String path) throws IOException {
